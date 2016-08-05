@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/main_layout"
+    android:background="@drawable/mainbg"
+    tools:context="com.github.abdalimran.desherabohawa.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/time_location"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:layout_margin="1dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:paddingLeft="5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/currentLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:layout_alignParentLeft="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/searchCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    app:queryHint="Search City"
+                    app:searchHintIcon="@null">
+
+                </android.support.v7.widget.SearchView>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/currentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:text="Date"
+                android:textColor="#fff"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/currentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="Time"
+                android:textColor="#fff"
+                android:textSize="18sp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/current_condition"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="50"
+        android:background="#92d2ff">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/weatherIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/clear"/>
+
+            <TextView
+                android:id="@+id/weatherStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weather Status"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/currentTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0°C"
+                android:textSize="50sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feels Like"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+        <View android:layout_height="fill_parent"
+            android:layout_width="2px"
+            android:background="#90909090"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/separator" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/currentHigh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Highest Temp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/currentLow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lowest Temp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/currentPressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pressure"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/currentHumidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Humidity"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/chancesRain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chances of rain"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/forecast"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25">
+
+        <LinearLayout
+            android:id="@+id/forecastDay1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="1dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/forDayName1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day"
+                android:paddingTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/forWeaStatD1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cloudy"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/forHiLwD1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Higest/Lowest"
+                android:paddingTop="5dp"/>
+
+        </LinearLayout>
+
+        <View android:layout_height="fill_parent"
+            android:layout_width="1px"
+            android:background="#90909090"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/forDayName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day"
+                android:paddingTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/forWeaStatD2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tstorms"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/forHiLwD2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:text="Higest/Lowest"/>
+
+        </LinearLayout>
+
+        <View android:layout_height="fill_parent"
+            android:layout_width="1px"
+            android:background="#90909090"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/forDayName3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day"
+                android:paddingTop="5dp"/>
+
+            <ImageView
+                android:id="@+id/forWeaStatD3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rain"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/forHiLwD3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Higest/Lowest"
+                android:paddingTop="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
