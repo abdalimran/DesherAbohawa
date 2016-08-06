@@ -3,11 +3,10 @@ package com.github.abdalimran.desherabohawa;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.util.Pair;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    private LinearLayout mainLayout;
     private TextView currentLocation;
-    private SearchView searchCity;
     private TextView currentDate;
     private TextView currentTime;
     private ImageView weatherIcon;
@@ -40,12 +37,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView forDayName1;
     private ImageView forWeaStatIconD1;
     private TextView forHiLwD1;
+    private TextView forPoRD1;
     private TextView forDayName2;
     private ImageView forWeaStatIconD2;
     private TextView forHiLwD2;
+    private TextView forPoRD2;
     private TextView forDayName3;
     private ImageView forWeaStatIconD3;
     private TextView forHiLwD3;
+    private TextView forPoRD3;
 
 
     @Override
@@ -90,9 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void FindViewByID()
     {
-        mainLayout=(LinearLayout) findViewById(R.id.main_layout);
         currentLocation= (TextView) findViewById(R.id.currentLocation);
-        searchCity= (SearchView) findViewById(R.id.searchCity);
         currentDate= (TextView) findViewById(R.id.currentDate);
         currentTime= (TextView) findViewById(R.id.currentTime);
         weatherIcon= (ImageView) findViewById(R.id.weatherIcon);
@@ -107,12 +105,15 @@ public class MainActivity extends AppCompatActivity {
         forDayName1= (TextView) findViewById(R.id.forDayName1);
         forWeaStatIconD1= (ImageView) findViewById(R.id.forWeaStatIconD1);
         forHiLwD1= (TextView) findViewById(R.id.forHiLwD1);
+        forPoRD1= (TextView) findViewById(R.id.forPoRD1);
         forDayName2= (TextView) findViewById(R.id.forDayName2);
         forWeaStatIconD2= (ImageView) findViewById(R.id.forWeaStatIconD2);
         forHiLwD2= (TextView) findViewById(R.id.forHiLwD2);
+        forPoRD2= (TextView) findViewById(R.id.forPoRD2);
         forDayName3= (TextView) findViewById(R.id.forDayName3);
         forWeaStatIconD3= (ImageView) findViewById(R.id.forWeaStatIconD3);
         forHiLwD3= (TextView) findViewById(R.id.forHiLwD3);
+        forPoRD3= (TextView) findViewById(R.id.forPoRD3);
     }
 
     private void getWeatherData()
@@ -156,6 +157,39 @@ public class MainActivity extends AppCompatActivity {
                         .getSimpleforecast().getForecastday().get(0).getLow().getCelsius())+"°C");
                 chancesRain.setText("Poss. of Rain: "+String.valueOf(response.body().getForecast()
                         .getSimpleforecast().getForecastday().get(0).getPop())+"%");
+
+                forDayName1.setText(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(1).getDate().getWeekday());
+                forWeaStatIconD1.setImageResource(getIconID(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(1).getIcon()));
+                forHiLwD1.setText(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(1).getHigh().getCelsius()+"°C / "+
+                        response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(1).getLow().getCelsius()+"°C");
+                forPoRD1.setText("PoR: "+String.valueOf(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(1).getPop())+"%");
+
+                forDayName2.setText(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(2).getDate().getWeekday());
+                forWeaStatIconD2.setImageResource(getIconID(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(2).getIcon()));
+                forHiLwD2.setText(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(2).getHigh().getCelsius()+"°C / "+
+                        response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(2).getLow().getCelsius()+"°C");
+                forPoRD2.setText("PoR: "+String.valueOf(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(2).getPop())+"%");
+
+                forDayName3.setText(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(3).getDate().getWeekday());
+                forWeaStatIconD3.setImageResource(getIconID(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(3).getIcon()));
+                forHiLwD3.setText(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(3).getHigh().getCelsius()+"°C / "+
+                        response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(3).getLow().getCelsius()+"°C");
+                forPoRD3.setText("PoR: "+String.valueOf(response.body().getForecast()
+                        .getSimpleforecast().getForecastday().get(3).getPop())+"%");
             }
 
             @Override
@@ -170,6 +204,15 @@ public class MainActivity extends AppCompatActivity {
         Resources res = getResources();
         int resID = res.getIdentifier(s,"drawable", getPackageName());
         return resID;
+    }
+
+    public void updateWeather(View view) {
+        FindViewByID();
+        currentDate.setText(TimeDate.getWeekDay() + "\n" + TimeDate.getDate());
+        currentTime.setText(TimeDate.getTime());
+        currentLocation.setText(getCity()+", Bangladesh");
+        getWeatherData();
+        Toast.makeText(getApplicationContext(),"Weather information has been updated!",Toast.LENGTH_SHORT).show();
     }
 
 }

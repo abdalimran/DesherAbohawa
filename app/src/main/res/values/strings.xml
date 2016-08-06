@@ -1,3 +1,48 @@
 <resources>
     <string name="app_name">Desher Abohawa</string>
+
+    <string-array name="city">
+        <item>  Barisal </item>
+        <item>  Bhola   </item>
+        <item>  Bogra   </item>
+        <item>  Chandpur    </item>
+        <item>  Chittagong  </item>
+        <item>  Chuadanga   </item>
+        <item>  Comilla </item>
+        <item>  Cox\'s Bazar </item>
+        <item>  Dhaka   </item>
+        <item>  Dinajpur    </item>
+        <item>  Faridpur    </item>
+        <item>  Feni    </item>
+        <item>  Hatia   </item>
+        <item>  Ishurdi </item>
+        <item>  Jamalpur    </item>
+        <item>  Jessore </item>
+        <item>  Joydevpur   </item>
+        <item>  Kaptai  </item>
+        <item>  Khepupara   </item>
+        <item>  Khulna  </item>
+        <item>  Kurmitola   </item>
+        <item>  Kutubdia    </item>
+        <item>  Madaripur   </item>
+        <item>  Maijdicourt </item>
+        <item>  Mymensingh  </item>
+        <item>  Patuakhali  </item>
+        <item>  Rajshahi    </item>
+        <item>  Rangamati   </item>
+        <item>  Rangpur </item>
+        <item>  Saidpur </item>
+        <item>  Sandwip </item>
+        <item>  Satkhira    </item>
+        <item>  Serajgonj   </item>
+        <item>  Sitakundu   </item>
+        <item>  Srimangal   </item>
+        <item>  Sylhet  </item>
+        <item>  Sylhet A.P. </item>
+        <item>  Tangail </item>
+        <item>  Teknaf  </item>
+        <item>  Thakurgaon  </item>
+
+    </string-array>
+
 </resources>

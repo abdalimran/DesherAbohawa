@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20">
+        android:layout_weight="25">
 
         <LinearLayout
             android:id="@+id/location_searh"
@@ -28,7 +28,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_margin="1dp"
-                android:paddingLeft="5dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -36,8 +35,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Location"
-                    android:textColor="#fff"
-                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#3A3A3A"
+                    android:textSize="20sp"
+                    android:paddingLeft="10dp"
                     android:layout_alignParentLeft="true"/>
 
             </RelativeLayout>
@@ -49,16 +50,16 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 
-                <android.support.v7.widget.SearchView
-                    android:id="@+id/searchCity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageButton
+                    android:id="@+id/updateWeather"
+                    android:onClick="updateWeather"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/update"
                     android:layout_alignParentRight="true"
-                    app:queryHint="Search City"
-                    app:searchHintIcon="@null">
-
-                </android.support.v7.widget.SearchView>
-
+                    android:layout_marginRight="10dp"
+                    android:background="@null"/>
             </RelativeLayout>
 
 
@@ -69,8 +70,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.8"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
             android:orientation="vertical"
             android:gravity="center_vertical">
 
@@ -81,6 +80,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:text="Date"
+                android:paddingLeft="10dp"
                 android:textColor="#fff"
                 android:textSize="18sp"/>
 
@@ -91,6 +91,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:text="Time"
+                android:paddingRight="10dp"
                 android:textColor="#fff"
                 android:textSize="18sp"/>
 
@@ -103,7 +104,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="50">
+        android:layout_weight="45">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -212,16 +213,16 @@
 
     </LinearLayout>
 
-    <View android:layout_height="1px"
-        android:layout_width="fill_parent"
-        android:background="#90909090"/>
+    <!--<View android:layout_height="1px"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:background="#90909090"/>-->
 
     <LinearLayout
         android:id="@+id/forecast"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="25">
+        android:layout_weight="30">
 
         <LinearLayout
             android:id="@+id/forecastDay1"
@@ -252,13 +253,20 @@
                 android:text="Higest/Lowest"
                 android:paddingTop="5dp"/>
 
+            <TextView
+                android:id="@+id/forPoRD1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PoR"
+                android:paddingTop="5dp"/>
+
         </LinearLayout>
 
-        <View android:layout_height="fill_parent"
-            android:layout_width="1px"
-            android:background="#90909090"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+        <!--<View android:layout_height="fill_parent"-->
+            <!--android:layout_width="1px"-->
+            <!--android:background="#90909090"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginBottom="10dp"/>-->
 
         <LinearLayout
             android:layout_width="0dp"
@@ -287,13 +295,20 @@
                 android:paddingTop="5dp"
                 android:text="Higest/Lowest"/>
 
+            <TextView
+                android:id="@+id/forPoRD2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PoR"
+                android:paddingTop="5dp"/>
+
         </LinearLayout>
 
-        <View android:layout_height="fill_parent"
-            android:layout_width="1px"
-            android:background="#90909090"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+        <!--<View android:layout_height="fill_parent"-->
+            <!--android:layout_width="1px"-->
+            <!--android:background="#90909090"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginBottom="10dp"/>-->
 
         <LinearLayout
             android:layout_width="0dp"
@@ -320,6 +335,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Higest/Lowest"
+                android:paddingTop="5dp"/>
+
+            <TextView
+                android:id="@+id/forPoRD3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PoR"
                 android:paddingTop="5dp"/>
 
         </LinearLayout>
