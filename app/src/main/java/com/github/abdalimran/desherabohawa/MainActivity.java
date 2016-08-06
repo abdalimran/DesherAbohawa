@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ConditionResponse> call, Response<ConditionResponse> response) {
                 weatherIcon.setImageResource(getIconID(response.body().getCurrentObservation().getIcon()));
                 weatherStatus.setText(response.body().getCurrentObservation().getWeather());
+                Log.e("getWeather", response.body().getCurrentObservation().getWeather());
                 currentTemp.setText(String.valueOf(response.body().getCurrentObservation().getTempC())+"°C");
                 feelsLike.setText("Feels like: "+response.body().getCurrentObservation().getFeelslikeC()+"°C");
                 currentPressure.setText("Pressure: "+String.valueOf(response.body().getCurrentObservation()
