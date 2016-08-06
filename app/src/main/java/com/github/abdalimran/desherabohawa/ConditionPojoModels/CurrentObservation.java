@@ -1186,11 +1186,6 @@ public class CurrentObservation {
         this.nowcast = nowcast;
     }
 
-    @Override
-    public String toString() {
-        return this.getWeather();
-    }
-
 
 //    @Override
 //    public String toString() {
