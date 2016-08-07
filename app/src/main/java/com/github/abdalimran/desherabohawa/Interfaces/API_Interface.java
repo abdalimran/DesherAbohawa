@@ -2,6 +2,7 @@ package com.github.abdalimran.desherabohawa.Interfaces;
 
 import com.github.abdalimran.desherabohawa.ConditionPojoModels.ConditionResponse;
 import com.github.abdalimran.desherabohawa.Forecast10dayPojoModels.Forecast10dayResponse;
+import com.github.abdalimran.desherabohawa.GeolookupPojoModels.GeolookupResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,4 +19,10 @@ public interface API_Interface {
     Call<Forecast10dayResponse> getWeatherForecast(
             @Path("apikey") String apikey,
             @Path("city") String city);
+
+    @GET("api/{apikey}/geolookup/q/{lat},{lon}.json")
+    Call<GeolookupResponse> getGeolookup(
+            @Path("apikey") String apikey,
+            @Path("lat") double lat,
+            @Path("lon") double lon);
 }

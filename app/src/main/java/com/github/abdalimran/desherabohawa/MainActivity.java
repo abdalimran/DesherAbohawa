@@ -1,10 +1,11 @@
 package com.github.abdalimran.desherabohawa;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.github.abdalimran.desherabohawa.ConditionPojoModels.ConditionResponse;
 import com.github.abdalimran.desherabohawa.Constants.Constants;
 import com.github.abdalimran.desherabohawa.Forecast10dayPojoModels.Forecast10dayResponse;
+import com.github.abdalimran.desherabohawa.GeolookupPojoModels.GeolookupResponse;
 import com.github.abdalimran.desherabohawa.Interfaces.API_Interface;
 
 import retrofit2.Call;
@@ -47,45 +49,35 @@ public class MainActivity extends AppCompatActivity {
     private TextView forHiLwD3;
     private TextView forPoRD3;
 
+    private GPSTracker gps;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FindViewByID();
-
-        currentDate.setText(TimeDate.getWeekDay() + "\n" + TimeDate.getDate());
-        currentTime.setText(TimeDate.getTime());
-        currentLocation.setText(getCity()+", Bangladesh");
-
-        getWeatherData();
     }
 
-    private Pair<Double, Double> getLatLon() {
-        GPSTracker gps = new GPSTracker(this.getApplicationContext());
-        Pair<Double, Double> p = null;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        gps=new GPSTracker(getApplicationContext());
 
-        if (gps.canGetLocation()) {
-            p = new Pair<>(gps.getLatitude(), gps.getLongitude());
+        FindViewByID();
+        if(!gps.canGetLocation() && !isOnline()) {
+            Toast.makeText(getApplicationContext(),"Please enable Location & Internet service.",Toast.LENGTH_LONG).show();
+        }
+        else if (!gps.canGetLocation()){
+            Toast.makeText(getApplicationContext(),"Please enable Location service.",Toast.LENGTH_LONG).show();
+        }
+        else if(!isOnline()){
+            Toast.makeText(getApplicationContext(),"Please enable Internet service.",Toast.LENGTH_LONG).show();
         }
         else {
-
-            Toast.makeText(getApplicationContext(),
-                    "Please enable location permission.",
-                    Toast.LENGTH_LONG).show();
-
-//            Snackbar.make(findViewById(android.R.id.content),
-//                    "Please enable location permission.",
-//                    Snackbar.LENGTH_LONG)
-//                    .show();
+            getWeatherData();
         }
-        return p;
-    }
-
-    private String getCity()
-    {
-        GPSTracker gps=new GPSTracker(getApplicationContext());
-        return gps.getCityName();
+        currentDate.setText(TimeDate.getWeekDay() + "\n" + TimeDate.getDate());
+        currentTime.setText(TimeDate.getTime());
     }
 
     private void FindViewByID()
@@ -116,17 +108,14 @@ public class MainActivity extends AppCompatActivity {
         forPoRD3= (TextView) findViewById(R.id.forPoRD3);
     }
 
-    private void getWeatherData()
+    private void getWeatherConditions(String currentCity)
     {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         API_Interface weatherService = retrofit.create(API_Interface.class);
-        Call<ConditionResponse> callWeatherConditions = weatherService.getWeatherConditions(Constants.API_KEY,getCity());
-        Call<Forecast10dayResponse> callWeatherForecast = weatherService.getWeatherForecast(Constants.API_KEY,getCity());
-
+        Call<ConditionResponse> callWeatherConditions = weatherService.getWeatherConditions(Constants.API_KEY,currentCity);
         callWeatherConditions.enqueue(new Callback<ConditionResponse>() {
             @Override
             public void onResponse(Call<ConditionResponse> call, Response<ConditionResponse> response) {
@@ -147,6 +136,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getForecast10day(String currentCity)
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        API_Interface weatherService = retrofit.create(API_Interface.class);
+        Call<Forecast10dayResponse> callWeatherForecast = weatherService.getWeatherForecast(Constants.API_KEY,currentCity);
         callWeatherForecast.enqueue(new Callback<Forecast10dayResponse>() {
             @Override
             public void onResponse(Call<Forecast10dayResponse> call, Response<Forecast10dayResponse> response) {
@@ -165,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 forHiLwD1.setText(response.body().getForecast()
                         .getSimpleforecast().getForecastday().get(1).getHigh().getCelsius()+"°C / "+
                         response.body().getForecast()
-                        .getSimpleforecast().getForecastday().get(1).getLow().getCelsius()+"°C");
+                                .getSimpleforecast().getForecastday().get(1).getLow().getCelsius()+"°C");
                 forPoRD1.setText("PoR: "+String.valueOf(response.body().getForecast()
                         .getSimpleforecast().getForecastday().get(1).getPop())+"%");
 
@@ -176,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 forHiLwD2.setText(response.body().getForecast()
                         .getSimpleforecast().getForecastday().get(2).getHigh().getCelsius()+"°C / "+
                         response.body().getForecast()
-                        .getSimpleforecast().getForecastday().get(2).getLow().getCelsius()+"°C");
+                                .getSimpleforecast().getForecastday().get(2).getLow().getCelsius()+"°C");
                 forPoRD2.setText("PoR: "+String.valueOf(response.body().getForecast()
                         .getSimpleforecast().getForecastday().get(2).getPop())+"%");
 
@@ -187,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 forHiLwD3.setText(response.body().getForecast()
                         .getSimpleforecast().getForecastday().get(3).getHigh().getCelsius()+"°C / "+
                         response.body().getForecast()
-                        .getSimpleforecast().getForecastday().get(3).getLow().getCelsius()+"°C");
+                                .getSimpleforecast().getForecastday().get(3).getLow().getCelsius()+"°C");
                 forPoRD3.setText("PoR: "+String.valueOf(response.body().getForecast()
                         .getSimpleforecast().getForecastday().get(3).getPop())+"%");
             }
@@ -195,6 +194,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Forecast10dayResponse> call, Throwable t) {
 
+            }
+        });
+
+    }
+
+    private void getWeatherData()
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        API_Interface weatherService = retrofit.create(API_Interface.class);
+        Call<GeolookupResponse> callGeolookup = weatherService.getGeolookup(Constants.API_KEY,gps.getLatitude(),gps.getLongitude());
+
+        callGeolookup.enqueue(new Callback<GeolookupResponse>(){
+            @Override
+            public void onResponse(Call<GeolookupResponse> call, Response<GeolookupResponse> response) {
+                currentLocation.setText(response.body().getLocation().getCity()+", Bangladesh");
+                String currentCity=response.body().getLocation().getCity();
+
+                getWeatherConditions(currentCity);
+                getForecast10day(currentCity);
+            }
+
+            @Override
+            public void onFailure(Call<GeolookupResponse> call, Throwable t) {
             }
         });
     }
@@ -207,12 +233,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateWeather(View view) {
-        FindViewByID();
-        currentDate.setText(TimeDate.getWeekDay() + "\n" + TimeDate.getDate());
-        currentTime.setText(TimeDate.getTime());
-        currentLocation.setText(getCity()+", Bangladesh");
-        getWeatherData();
-        Toast.makeText(getApplicationContext(),"Weather information has been updated!",Toast.LENGTH_SHORT).show();
+
+        if(!gps.canGetLocation() && !isOnline()) {
+            Toast.makeText(getApplicationContext(),"Please enable Location & Internet service.",Toast.LENGTH_LONG).show();
+        }
+        else if (!gps.canGetLocation()){
+            Toast.makeText(getApplicationContext(),"Please enable Location service.",Toast.LENGTH_LONG).show();
+        }
+        else if(!isOnline()){
+            Toast.makeText(getApplicationContext(),"Please enable Internet service.",Toast.LENGTH_LONG).show();
+        }
+        else {
+            currentDate.setText(TimeDate.getWeekDay() + "\n" + TimeDate.getDate());
+            currentTime.setText(TimeDate.getTime());
+            getWeatherData();
+            Toast.makeText(getApplicationContext(),"Weather information has been updated!",Toast.LENGTH_SHORT).show();
+        }
     }
 
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
 }
