@@ -23,6 +23,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/*
+* Please register on: https://www.wunderground.com/weather/api/
+* Generate your own free API key and replace the key into API_KEY field of the Constant class.*/
+
+
 public class MainActivity extends AppCompatActivity {
     private TextView currentLocation;
     private TextView currentDate;
@@ -131,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<ConditionResponse> call, Throwable t) {
-
+                Toast.makeText(getApplicationContext(), "We are sorry! Something went wrong with the API!", Toast.LENGTH_LONG).show();
                 Log.e("error",t.getMessage());
             }
         });
@@ -193,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Forecast10dayResponse> call, Throwable t) {
-
+                Toast.makeText(getApplicationContext(), "We are sorry! Something went wrong with the API!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -212,15 +217,19 @@ public class MainActivity extends AppCompatActivity {
         callGeolookup.enqueue(new Callback<GeolookupResponse>(){
             @Override
             public void onResponse(Call<GeolookupResponse> call, Response<GeolookupResponse> response) {
-                currentLocation.setText(response.body().getLocation().getCity()+", Bangladesh");
-                String currentCity=response.body().getLocation().getCity();
-
-                getWeatherConditions(currentCity);
-                getForecast10day(currentCity);
+                if (response.body().getLocation() != null) {
+                    currentLocation.setText(response.body().getLocation().getCity() + ", Bangladesh");
+                    String currentCity = response.body().getLocation().getCity();
+                    getWeatherConditions(currentCity);
+                    getForecast10day(currentCity);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Sorry! API key is not valid due to exceeding rate plan.", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
             public void onFailure(Call<GeolookupResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "We are sorry! Something went wrong with the API!", Toast.LENGTH_LONG).show();
             }
         });
     }

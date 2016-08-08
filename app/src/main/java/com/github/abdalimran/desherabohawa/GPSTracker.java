@@ -18,29 +18,22 @@ import java.util.Locale;
 
 public class GPSTracker extends Service implements LocationListener {
 
+    // The minimum distance to change Updates in meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    // The minimum time between updates in milliseconds
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
     private final Context mContext;
-
+    // Declaring a Location Manager
+    protected LocationManager locationManager;
     // flag for GPS status
     private boolean isGPSEnabled = false;
-
     // flag for network status
     private boolean isNetworkEnabled = false;
-
     // flag for GPS status
     private boolean canGetLocation = false;
-
     private Location location; // location
     private double latitude; // latitude
     private double longitude; // longitude
-
-    // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
-
-    // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
-
-    // Declaring a Location Manager
-    protected LocationManager locationManager;
 
     public GPSTracker(Context context) {
         this.mContext = context;
@@ -151,12 +144,10 @@ public class GPSTracker extends Service implements LocationListener {
      * Function to show settings alert dialog
      * On pressing Settings button will lauch Settings Options
      * */
-    public void showSettingsAlert(){
+//    public void showSettingsAlert(){
 //        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-////        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-//
 //        // Setting Dialog Title
-//        alertDialog.setTitle("GPS is settings");
+//        alertDialog.setTitle("GPS settings");
 //
 //        // Setting Dialog Message
 //        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
@@ -178,7 +169,7 @@ public class GPSTracker extends Service implements LocationListener {
 //
 //        // Showing Alert Message
 //        alertDialog.show();
-    }
+//    }
 
     public String getCityName()
     {
